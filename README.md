@@ -1,14 +1,28 @@
 # GitHub DevOps Template
 
-[![CI](https://github.com/TON_USERNAME/github-devops-template/actions/workflows/ci.yml/badge.svg)](https://github.com/TON_USERNAME/github-devops-template/actions/workflows/ci.yml)
+[![CI](https://github.com/Fanidi-ahmed/github-devops-template/actions/workflows/ci.yml/badge.svg)](https://github.com/Fanidi-ahmed/github-devops-template/actions/workflows/ci.yml)
 
-A simple Python project used to build a clean GitHub foundation for future DevOps, Cloud, Automation, and API projects.
+A reusable FastAPI project template with testing, linting, Docker support, and GitHub Actions CI.
 
-This repository demonstrates:
-- a clean project structure
-- a minimal Python application
-- automated tests with pytest
-- a GitHub Actions CI workflow
+---
+
+## Overview
+
+This repository is a clean starting point for future:
+- FastAPI backends
+- internal Python tools
+- DevOps automation services
+- Dockerized microservices
+- SaaS API foundations
+
+It includes:
+- FastAPI application
+- healthcheck endpoint
+- example business logic
+- pytest tests
+- ruff linting
+- Docker build
+- GitHub Actions CI pipeline
 
 ---
 
@@ -24,18 +38,22 @@ github-devops-template/
 ├── .github/
 │   └── workflows/
 │       └── ci.yml
+├── .dockerignore
 ├── .gitignore
+├── Dockerfile
+├── pyproject.toml
 ├── README.md
 └── requirements.txt
 Requirements
 Python 3.11
+Docker
 Git
 GitHub account
-Setup
+Local Setup
 
 Clone the repository:
 
-git clone https://github.com/TON_USERNAME/github-devops-template.git
+git clone https://github.com/Fanidi-ahmed/github-devops-template.git
 cd github-devops-template
 
 Create and activate a virtual environment:
@@ -46,50 +64,87 @@ source .venv/bin/activate
 Install dependencies:
 
 pip install -r requirements.txt
-Run the Application
-python app/main.py
+Run the API Locally
 
-Expected output:
+Start the FastAPI server:
 
-Result: 5
+uvicorn app.main:app --host 0.0.0.0 --port 8001
+Available Endpoints
+Root endpoint
+curl http://127.0.0.1:8001/
+
+Expected response:
+
+{"message":"Hello from FastAPI","project":"github-devops-template","status":"ok"}
+Health check
+curl http://127.0.0.1:8001/health
+
+Expected response:
+
+{"status":"healthy"}
+Add two numbers
+curl "http://127.0.0.1:8001/add?a=2&b=3"
+
+Expected response:
+
+{"result":5}
 Run the Tests
 pytest
+Run Lint Checks
+ruff check .
+
+To auto-fix simple issues:
+
+ruff check . --fix
+Run with Docker
+
+Build the image:
+
+docker build -t github-devops-template:local .
+
+Run the container:
+
+docker run --rm -p 8000:8000 github-devops-template:local
+
+Test the containerized API:
+
+curl http://127.0.0.1:8000/
+curl http://127.0.0.1:8000/health
+curl "http://127.0.0.1:8000/add?a=10&b=7"
 CI Pipeline
 
-This project includes a GitHub Actions workflow located in:
+The GitHub Actions workflow is defined in:
 
 .github/workflows/ci.yml
 
-The workflow runs automatically on:
+It runs automatically on push and pull request to main or master.
 
-push to main
-pull request to main
+Current CI stages:
 
-It performs the following steps:
+checkout repository
+install Python 3.11
+install dependencies
+run ruff lint checks
+run pytest
+build Docker image
+Why This Template Matters
 
-checks out the code
-installs Python 3.11
-installs dependencies
-runs pytest
-Why This Project Exists
+This project provides a reusable foundation for building professional repositories with:
 
-This repository is a reusable foundation for future projects such as:
-
-FastAPI backends
-boto3 automation scripts
-Terraform validation pipelines
-Docker-based services
-Kubernetes projects
-DevOps and Cloud SaaS products
+clean structure
+automated quality checks
+container support
+GitHub-based validation
+a presentable public portfolio
 Next Improvements
 
 Possible next steps:
 
-add linting with ruff
-add formatting checks
-add Docker build workflow
-add security scanning
-add Terraform validation
-add deployment workflows
+add Makefile
+add pre-commit hooks
+publish Docker image to GitHub Container Registry
+add environment variable support
+add Terraform validation workflow
+create a second reusable template for Terraform projects
 
-Auteur: Ahmed Fanidi
+Author: Ahmed Fanidi
