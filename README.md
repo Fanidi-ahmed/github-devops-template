@@ -92,6 +92,4 @@ add security scanning
 add Terraform validation
 add deployment workflows
 
-Author
-
-Ahmed Fanidi
+Auteur: Ahmed Fanidi
