@@ -1,11 +1,26 @@
+from fastapi import FastAPI
+
+app = FastAPI(title="GitHub DevOps Template API")
+
+
 def add(a: int, b: int) -> int:
     return a + b
 
 
-def main() -> None:
-    result = add(2, 3)
-    print(f"Result: {result}")
+@app.get("/")
+def read_root():
+    return {
+        "message": "Hello from FastAPI",
+        "project": "github-devops-template",
+        "status": "ok"
+    }
 
 
-if __name__ == "__main__":
-    main()
+@app.get("/health")
+def health_check():
+    return {"status": "healthy"}
+
+
+@app.get("/add")
+def add_numbers(a: int, b: int):
+    return {"result": add(a, b)}
